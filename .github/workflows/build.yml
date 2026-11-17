@@ -1,0 +1,58 @@
+name: Build desktop packages
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            command: build:linux
+          - os: windows-latest
+            command: build:windows
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run ${{ matrix.command }}
+      - if: runner.os == 'Windows'
+        run: npm run build:windows:installer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Orbit-${{ runner.os }}
+          path: |
+            release/*.deb
+            release/*.AppImage
+            release/*.exe
+          if-no-files-found: error
+  flatpak:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: sudo apt-get update && sudo apt-get install -y flatpak
+      - run: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      - run: flatpak install --user --noninteractive flathub org.freedesktop.Platform//25.08 org.electronjs.Electron2.BaseApp//25.08
+      - run: npm ci
+      - run: npm run build:flatpak
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Orbit-Flatpak
+          path: release/*.flatpak
+          if-no-files-found: error
