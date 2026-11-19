@@ -1,22 +1,23 @@
 <p align="center"><img src="assets/icon.svg" width="88" alt="Orbit icon"></p>
 <h1 align="center">Orbit</h1>
-<p align="center"><strong>Your machine, understood.</strong><br>A local desktop control center for Linux and Windows, wrapped in silver glass.</p>
+<p align="center"><strong>Your machine, understood.</strong><br>A local desktop control center for Linux and Windows, in a translucent window.</p>
 <p align="center">Live performance · Processes · Storage inspection · Explainable health checks</p>
 
-![Orbit’s silver glass interface, with illustrative preview data](docs/overview-silver.png)
+![Orbit’s translucent overview, with illustrative preview data](docs/overview-inspired.png)
 
 Orbit brings the everyday questions together: **What is using my memory? Where did my disk space go? Is something wrong?** The first release combines real system measurements with a calm, animated interface. No account, cloud service, or subscription.
 
 ## What works today
 
-- **Overview:** CPU, available memory, filesystem capacity, network throughput, uptime, and a rolling 60-sample CPU graph.
+- **Overview:** measured CPU, memory, and storage gauges; network throughput; uptime, battery status, host OS identity, and a rolling 60-sample CPU graph.
 - **Processes:** live OS process list, name/PID filtering, CPU/memory/name sorting, and process states. Up to 400 entries; no process termination.
 - **Storage:** mounted filesystem usage plus a native folder picker and a bounded recursive size inspection. Never follows symlinks, crosses filesystem boundaries, or deletes files; hard links count once.
 - **Health:** measured CPU, memory, disk, interface, Linux systemd, and battery checks with evidence and next steps. Unsupported checks remain explicitly unknown.
 - **Reports:** local JSON exports omit hostnames, usernames, IP addresses, paths, process names, and service names. Exports include hardware model and OS information; review before sharing.
-- **Interface:** silver glass / obsidian themes, keyboard command palette, adjustable polling, quiet-motion mode, reduced transparency, and responsive layouts.
+- **Interface:** one warm, translucent dashboard appearance, a live transparency slider saved on this device, keyboard-accessible dropdowns, command palette, adjustable polling, quiet-motion mode, and responsive layouts.
+- **Machine details:** distribution and version, codename, kernel, architecture, processor, logical cores, desktop, and session where reported. Open the device card or Preferences to inspect them. Flatpak shows the host OS separately from its runtime.
 
-The design uses the supplied references’ detached charcoal rail, frosted side panel, raised selection, white glass edges, and coral/teal shapes. It is a functional interpretation of those references, not an Apple-native material or an exact copy of the original dashboard.
+The frameless Electron window lets the actual desktop show through its clear corners and translucent panels. Use the slider in the top bar or Preferences to set transparency from 0% to 80%. There is no wallpaper or theme picker inside the app. Health-check actions show an explicit scanning state.
 
 ## Run from source
 
@@ -53,13 +54,13 @@ flatpak install --user ./Orbit-0.1.0-linux-x86_64.flatpak
 flatpak run io.github.orbitdesktop.Orbit
 ```
 
-Windows users can launch the portable executable directly. This first build has no signing certificate. Linux-to-Windows cross-building does not validate Windows runtime behavior; test it on Windows before publishing a release.
+Windows users can launch the portable executable directly. The current Windows build includes the translucent dashboard and transparency slider, and is unsigned. Linux-to-Windows cross-building does not validate Windows runtime behavior; test it on Windows before publishing a release.
 
 The GitHub Actions workflow builds Linux, Windows portable/setup, and Flatpak artifacts. It uploads build artifacts rather than publishing releases. Before publishing, replace the generic homepage and placeholder maintainer address in `package.json`, choose an application ID tied to your own project, and configure signing if desired. This repository is not yet published to GitHub or Flathub.
 
 ### Flatpak’s scope
 
-The Flatpak declares read-only home access for storage inspection, display/GPU access, IPC, and network namespace access for passive interface measurements. File exports use the native dialog/portal. Host service checks are unavailable; the process list and other measurements may reflect the sandbox. Orbit displays this limitation in the app and in reports. It does not request host command execution. Use `.deb` or AppImage for broader host visibility.
+The Flatpak declares read-only home access for storage inspection, display/GPU access, IPC, and network namespace access for passive interface measurements. File exports use the native dialog/portal. Host service checks are unavailable; the process list and other measurements may reflect the sandbox. Orbit displays this limitation in the app and in reports. The host distribution is read from Flatpak’s read-only `/run/host/os-release`, as documented in the [Flatpak command reference](https://docs.flatpak.org/en/latest/flatpak-command-reference.html); unavailable host identity is labelled rather than replaced with the runtime name. It does not request host command execution. Use `.deb` or AppImage for broader host visibility.
 
 Build requirements: `flatpak`, Freedesktop Platform 25.08, and `org.electronjs.Electron2.BaseApp` 25.08. The bundle script packages the precompiled Electron app using standard `flatpak build-init`, `build-finish`, `build-export`, and `build-bundle` commands. The Platform is also the build environment; no SDK compiler or Flatpak Builder is needed. It uses the base app’s Zypak wrapper to preserve renderer isolation.
 
@@ -82,7 +83,7 @@ If `release/linux-unpacked` is already current, `npm run bundle:flatpak` skips r
 
 ## Performance and measurement
 
-Polling defaults to two seconds, can be changed to five or ten seconds, and pauses when the app is hidden. Disk/interface metadata refreshes every 30 seconds. Process queries are cached for four seconds and requested while viewing Processes. Polls do not overlap. Decorative animations use transforms; quiet-motion also respects the OS accessibility preference. The app does not promise a particular frame rate on every GPU.
+Polling defaults to two seconds, can be changed to five or ten seconds, and pauses when the app is hidden. Disk/interface metadata refreshes every 30 seconds. Process queries are cached for four seconds and requested while viewing Processes. Polls do not overlap. The dashboard uses CSS panels and charts; quiet-motion and transparency controls remain available.
 
 Folder scans stop after 15 seconds or 60,000 directory entries and return labelled partial results. Counts are logical file sizes, not allocated blocks. Inaccessible entries, symlinks, and mount crossings are skipped. Results can change while other apps edit files. Network checks inspect adapters, not external internet reachability. Health checks are diagnostic snapshots, not predictions or a security audit.
 
@@ -104,7 +105,8 @@ For an existing test browser, set `ORBIT_BROWSER_PATH` to its executable before 
 | `desktop/preload.cjs` | Narrow renderer API; no general shell or filesystem access |
 | `desktop/metrics.cjs` | Cross-platform measurements, health rules, report allowlist |
 | `desktop/storage.cjs` | Bounded folder traversal |
-| `ui/` | Offline interface, charts, themes, command palette |
+| `desktop/system-info.cjs` | Native / Flatpak host identity and safe os-release parsing |
+| `ui/` | Offline interface, charts, one translucent appearance, glass select controls, command palette |
 | `scripts/` | Preview and integration checks |
 | `test/` | Diagnostic, privacy, and filesystem behavior tests |
 

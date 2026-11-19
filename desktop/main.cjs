@@ -16,7 +16,7 @@ function handle(name, callback) {
 }
 
 function createWindow() {
-  window = new BrowserWindow({ width: 1440, height: 960, minWidth: 880, minHeight: 650, show: false, frame: false, backgroundColor: '#0d1320', title: 'Orbit', icon: path.join(__dirname, '..', 'assets', 'icon.png'), webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true } });
+  window = new BrowserWindow({ width: 1440, height: 960, minWidth: 880, minHeight: 650, show: false, frame: false, transparent: true, backgroundColor: '#00000000', title: 'Orbit', icon: path.join(__dirname, '..', 'assets', 'icon.png'), webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true } });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('will-navigate', event => event.preventDefault());
   window.webContents.session.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));

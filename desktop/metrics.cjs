@@ -1,5 +1,6 @@
 const si = require('systeminformation');
 const os = require('node:os');
+const { linuxIdentity } = require('./system-info.cjs');
 const { execFile } = require('node:child_process');
 const { promisify } = require('node:util');
 const exec = promisify(execFile);
@@ -57,8 +58,14 @@ function createMetrics() {
   let services = null;
   async function system() {
     if (info) return info;
-    const [platform, cpu] = await Promise.all([safe(si.osInfo(), {}), safe(si.cpu(), {})]);
+    const sandboxed = Boolean(process.env.FLATPAK_ID);
+    const [platform, cpu, identity] = await Promise.all([safe(si.osInfo(), {}), safe(si.cpu(), {}), os.platform() === 'linux' ? linuxIdentity({ sandboxed }) : null]);
     info = { platform: os.platform(), distro: platform.distro || os.type(), release: platform.release || os.release(), kernel: platform.kernel || os.release(), arch: os.arch(), cpu: `${cpu.manufacturer || ''} ${cpu.brand || os.cpus()[0]?.model || 'Unknown processor'}`.trim(), cores: cpu.cores || os.cpus().length, sandboxed: Boolean(process.env.FLATPAK_ID), version: '0.1.0' };
+    Object.assign(info, identity || {}, {
+      runtime: sandboxed ? platform.distro || 'Flatpak runtime' : '',
+      desktop: os.platform() === 'linux' ? (process.env.XDG_CURRENT_DESKTOP || process.env.DESKTOP_SESSION || '').slice(0, 120).replace(/:/g, ' / ') : '',
+      session: os.platform() === 'linux' ? (process.env.XDG_SESSION_TYPE || '').slice(0, 30) : ''
+    });
     return info;
   }
   async function collect() {

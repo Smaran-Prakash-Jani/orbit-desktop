@@ -11,8 +11,8 @@
     "start": "electron .",
     "preview": "node scripts/preview.cjs",
     "test": "node --test test/*.test.cjs",
-    "check": "node --check desktop/main.cjs && node --check desktop/metrics.cjs && node --check desktop/storage.cjs && node --check ui/app.js",
-    "test:ui": "node scripts/ui-smoke.cjs",
+    "check": "node --check desktop/main.cjs && node --check desktop/metrics.cjs && node --check desktop/storage.cjs && node --check desktop/system-info.cjs && node --check ui/select.js && node --check ui/app.js",
+    "test:ui": "node scripts/ui-smoke.cjs && node scripts/refinements-smoke.cjs",
     "test:desktop": "node scripts/desktop-smoke.cjs",
     "build:linux": "electron-builder --linux deb AppImage --x64 --publish never",
     "build:windows": "electron-builder --win portable --x64 --publish never",
@@ -21,23 +21,67 @@
     "bundle:flatpak": "node scripts/bundle-flatpak.cjs",
     "build:dir": "electron-builder --dir --publish never"
   },
-  "dependencies": { "systeminformation": "5.33.23" },
-  "devDependencies": { "electron": "45.3.3", "electron-builder": "26.18.0", "playwright": "^1.56.0" },
+  "dependencies": {
+    "systeminformation": "5.33.23"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "26.18.0",
+    "playwright": "^1.56.0"
+  },
   "build": {
     "appId": "io.github.orbitdesktop.Orbit",
     "productName": "Orbit",
-    "directories": { "output": "release", "buildResources": "assets" },
-    "files": ["desktop/**/*", "ui/**/*", "assets/icon.png", "package.json"],
+    "directories": {
+      "output": "release",
+      "buildResources": "assets"
+    },
+    "files": [
+      "desktop/**/*",
+      "ui/**/*",
+      "assets/icon.png",
+      "package.json"
+    ],
     "asar": true,
     "artifactName": "Orbit-${version}-${os}-${arch}.${ext}",
-    "linux": { "target": ["deb", "AppImage"], "category": "System", "icon": "assets/icon.png", "executableName": "orbit", "syncDesktopName": true, "maintainer": "Orbit contributors <orbit@example.invalid>" },
-    "win": { "target": ["portable"], "icon": "assets/icon.png", "signExecutable": false },
-    "portable": { "artifactName": "Orbit-${version}-windows-${arch}-portable.${ext}" },
-    "nsis": { "artifactName": "Orbit-${version}-windows-${arch}-setup.${ext}", "oneClick": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "System",
+      "icon": "assets/icon.png",
+      "executableName": "orbit",
+      "syncDesktopName": true,
+      "maintainer": "Orbit contributors <orbit@example.invalid>"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.png",
+      "signExecutable": false
+    },
+    "portable": {
+      "artifactName": "Orbit-${version}-windows-${arch}-portable.${ext}"
+    },
+    "nsis": {
+      "artifactName": "Orbit-${version}-windows-${arch}-setup.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
     "flatpak": {
       "runtimeVersion": "25.08",
       "baseVersion": "25.08",
-      "finishArgs": ["--socket=wayland", "--socket=fallback-x11", "--share=ipc", "--device=dri", "--share=network", "--filesystem=home:ro"]
+      "finishArgs": [
+        "--socket=wayland",
+        "--socket=fallback-x11",
+        "--share=ipc",
+        "--device=dri",
+        "--share=network",
+        "--filesystem=home:ro"
+      ]
     }
   }
 }

@@ -1,0 +1,116 @@
+/* Shared type, controls, and motion for the translucent workspace. */
+:root {
+  --glass-tint: #fff;
+  --menu: rgba(30, 43, 52, .78);
+  --scene-a: #9cd6c5;
+  --scene-b: #80a6c3;
+  --scene-c: #ddb4a8;
+  --chart: #a2deca;
+  --chart-network: #9abfd9;
+}
+body {font-weight:450;text-rendering:optimizeLegibility}
+h1 {font-weight:600;letter-spacing:-1.2px}
+h1 span {font-weight:450}
+h3,.panel-heading h3,.setting-row h3 {font-weight:650}
+.brand {font-weight:750}
+.brand small {font-weight:500}
+.nav-item {font-weight:550}
+.button {font-weight:600}
+.metric-number {font-weight:550}
+.metric-top {font-weight:550}
+.eyebrow,.workspace-label {font-weight:650}
+.pill {font-weight:650}
+.page-heading p,.hero-copy>p {font-size:12px}
+.panel-heading p,.insight-panel p {font-size:11px}
+.metric-bottom,.chart-labels,.bottom-note,.hero-caption {font-size:9px;font-weight:500}
+/* Keep process data crisp and easy to scan against the glass panel. */
+#view-processes th {font-size:10px;font-weight:650;color:var(--muted)}
+#process-rows td {font-size:12px;font-weight:600}
+#process-rows .process-name {font-weight:700}
+#process-rows .muted {color:var(--muted)}
+#process-rows .state-tag {font-size:10px;font-weight:600;color:var(--text)}
+#view-processes .table-toolbar>span,#view-processes .sort-control,#view-processes .table-foot {font-size:10px;font-weight:600;color:var(--muted)}
+#process-search {font-weight:600}
+html .mini-chart path[stroke],html .large-chart path[stroke] {stroke:var(--chart)}
+html .network-spark path[stroke] {stroke:var(--chart-network)}
+/* Every Orbit mark carries a softly moving ring and an orbiting point. */
+.brand-mark {transform:rotate(-30deg);background:linear-gradient(140deg,#f1fff4,var(--scene-a) 47%,var(--scene-b))!important}
+.brand-mark span {animation:logo-ring 9s ease-in-out infinite;transform-origin:center}
+.brand-mark span:after {content:'';position:absolute;width:4px;height:4px;right:3%;top:0;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--scene-a)}
+@keyframes logo-ring {0%,100%{transform:rotate(-8deg) scaleY(.85)}50%{transform:rotate(18deg) scaleY(1.2)}}
+.device-card {width:100%;text-align:left;color:var(--text);background:transparent;border-radius:10px;border-bottom:0;transition:background .2s;gap:10px}
+.device-card:hover {background:var(--hover)}
+.device-card>div:nth-child(2) {min-width:0;flex:1}
+.device-card strong {max-width:none;font-weight:650;font-size:12px;white-space:normal;line-height:1.4}
+.device-card div>span {max-width:none;line-height:1.4}
+.device-card>svg,.device-card>i {width:14px;height:14px;color:var(--accent);flex-shrink:0}
+/* A machine-centered welcome card with one visual language. */
+.hero {height:auto;min-height:330px;display:grid;grid-template-columns:1.1fr 1fr;align-items:center}
+.hero-copy {width:auto;padding:28px 32px 24px}
+.hero h2 {font-weight:550;font-size:35px;letter-spacing:-1.1px;max-width:440px}
+.hero-copy>p {max-width:320px;margin-bottom:19px}
+.hero-caption {margin-top:15px}
+.hero-machine {position:relative;min-width:0;align-self:stretch;display:flex;align-items:center;justify-content:center;padding:18px 24px 24px;flex-direction:column}
+.machine-identity {position:relative;display:flex;flex-direction:column;gap:5px;min-width:190px;max-width:100%;text-align:left;padding:15px 43px 15px 19px;border-radius:15px;background:linear-gradient(135deg,#ffffff26,#ffffff08);border:1px solid var(--line);box-shadow:inset 0 1px 1px #ffffff35;backdrop-filter:blur(14px)}
+.machine-identity:hover {background:var(--hover)}
+.machine-label {font-size:8px;letter-spacing:1.5px;font-weight:700;color:var(--dim)}
+.machine-identity strong {font-weight:650;font-size:14px;overflow-wrap:anywhere}
+.machine-identity>span:last-of-type {font-size:10px;color:var(--muted)}
+.machine-identity>i {position:absolute;right:16px;top:40%;color:var(--accent)}
+.machine-identity svg {width:14px;height:14px}
+.hero-facts {grid-column:1/-1;border-top:1px solid var(--line);padding:12px 32px;display:flex;align-items:center;gap:24px;background:#ffffff05;font-size:10px;color:var(--muted);flex-wrap:wrap}
+.hero-facts>span {display:flex;align-items:center;gap:7px}
+.hero-facts>span:last-child {margin-left:auto}
+.hero-facts svg {width:13px;height:13px;color:var(--accent)}
+.machine-panel {margin-top:20px;padding:26px 28px}
+.machine-panel .eyebrow {margin-bottom:7px}
+.machine-panel .panel-heading>i {color:var(--accent)}
+.system-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin:20px 0 0}
+.system-grid>div {border-top:1px solid var(--line);padding:15px 0;min-width:0}
+.system-grid dt {color:var(--dim);font-size:10px;margin-bottom:6px}
+.system-grid dd {margin:0;font-size:12px;font-weight:550;line-height:1.5;overflow-wrap:anywhere}
+/* Custom selects use the top layer so table clipping cannot hide the menu. */
+.sort-control {display:flex;align-items:center;gap:8px}
+.glass-select {display:inline-flex;min-width:0}
+.select-trigger {position:relative;min-width:105px;padding:10px 35px 10px 13px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(130deg,#ffffff28,#ffffff09);box-shadow:inset 0 1px 1px #ffffff35;backdrop-filter:blur(16px);text-align:left;font-size:11px;font-weight:550;white-space:nowrap}
+.select-trigger:after {content:'';position:absolute;right:14px;top:42%;width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg)}
+.select-trigger[aria-expanded=true] {border-color:var(--accent);background:var(--hover)}
+.select-menu {position:fixed;inset:auto;margin:0;padding:6px;max-height:240px;overflow:auto;border:1px solid color-mix(in srgb,var(--accent) 23%,#ffffff50);border-radius:13px;background:var(--menu);color:var(--text);backdrop-filter:blur(28px) saturate(1.25);box-shadow:inset 0 1px 1px #ffffff60,0 12px 30px #172d3c30;font-size:12px}
+.select-menu::backdrop {background:transparent}
+.select-option {position:relative;padding:10px 33px 10px 11px;border:1px solid transparent;border-radius:8px;cursor:pointer;font-weight:500}
+.select-option.highlighted,.select-option:hover {background:var(--hover);border-color:var(--line)}
+.select-option[aria-selected=true] {color:var(--accent);font-weight:650}
+.select-option[aria-selected=true]:after {content:'✓';position:absolute;right:11px;top:9px;font-weight:700}
+/* Accessibility preferences cover every added material and animation. */
+body.no-effects .glass,body.no-effects .rail-inner,body.no-effects .rail-settings,body.no-effects .select-menu,body.no-effects .select-trigger,body.no-effects .machine-identity,body.no-effects .icon-rail,body.no-effects .app-shell:before {backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--panel-solid)}
+.app-hidden *,.app-hidden *:before,.app-hidden *:after {animation-play-state:paused!important}
+@media(max-width:760px) {
+  .hero {display:flex;flex-direction:column;align-items:stretch;min-height:0;height:auto}
+  .hero-copy {padding:23px 19px 16px}.hero h2 {font-size:29px;max-width:none}.hero-copy>p {max-width:none;font-size:11px}.hero-caption {font-size:8px;max-width:none}
+  .hero-machine {padding:0 19px 20px;align-self:auto;min-height:105px;flex-direction:row;gap:6px;overflow:hidden}
+  .machine-identity {width:100%;min-width:0;padding:13px 30px 13px 13px}.machine-identity strong {font-size:12px}.machine-label {font-size:7px}.machine-identity>span:last-of-type {font-size:9px}
+  .hero-facts {padding:12px 19px;gap:11px;font-size:9px}.hero-facts>span:last-child {margin-left:0}.hero-facts svg {width:11px;height:11px}
+  .metric-bottom {font-size:8px;white-space:normal}.page-heading p {font-size:11px}.panel-heading p {font-size:10px}.section-label h3 {font-weight:650}.bottom-note {font-size:8px}
+  .system-grid {grid-template-columns:1fr;gap:0}.machine-panel {padding:21px 18px}.machine-panel .panel-heading {align-items:flex-start}.system-grid dd {font-size:11px}.machine-panel h3 {line-height:1.5}
+}
+/* Health actions share the current glass surface. */
+.button.scan-button {
+  position:relative;gap:12px;padding:8px 11px 8px 8px;border-radius:14px;
+  color:var(--text);border:1px solid color-mix(in srgb,var(--accent) 42%,transparent);
+  background:linear-gradient(125deg,color-mix(in srgb,var(--scene-a) 20%,transparent),#ffffff08);
+  box-shadow:inset 0 1px 0 #ffffff45,0 6px 20px #142f3c12;
+  backdrop-filter:blur(16px);font-size:11px;min-height:46px;
+}
+.scan-emblem {display:grid;place-items:center;width:29px;height:29px;border-radius:9px;color:var(--text);background:transparent;border:1px solid var(--line)}
+.scan-emblem svg {width:17px;height:17px;stroke-width:1.8}
+.scan-arrow {display:grid;place-items:center;border-left:1px solid var(--line);margin-left:4px;padding-left:11px;min-height:22px;color:var(--accent)}
+.scan-arrow svg {width:14px;height:14px;transition:transform .2s}
+.button.scan-button:hover:not(:disabled) {background:linear-gradient(125deg,color-mix(in srgb,var(--scene-a) 34%,transparent),#ffffff15);border-color:var(--accent);box-shadow:inset 0 1px 0 #ffffff65,0 7px 23px #142f3c24;transform:translateY(-1px)}
+.scan-button:hover:not(:disabled) .scan-arrow svg {transform:translate(1px,-1px)}
+.button.scan-button:active:not(:disabled) {transform:translateY(1px)}
+.button.scan-button[aria-busy=true] {opacity:1;color:var(--muted)}
+.scan-button[aria-busy=true] .scan-emblem svg {animation:scan-signal 1.4s ease-in-out infinite}
+.scan-button[aria-busy=true] .scan-arrow svg {opacity:.3}
+@keyframes scan-signal {50%{opacity:.35;transform:scale(.88)}}
+.no-effects .button.scan-button {background:var(--panel-solid);backdrop-filter:none}
+.mini-chart {position:relative}
