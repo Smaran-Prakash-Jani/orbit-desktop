@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
 (async()=>{
   // Test the installed app: `flatpak build` omits runtime D-Bus proxies required by Zypak.
-  const child=spawn('flatpak',['run','--user','io.github.orbitdesktop.Orbit','--remote-debugging-port=19327'],{stdio:['ignore','pipe','pipe']});
+  const child=spawn('flatpak',['run','--user','io.github.Smaran_Prakash_Jani.orbit-desktop','--remote-debugging-port=19327'],{stdio:['ignore','pipe','pipe']});
   let logs='';child.stderr.on('data',b=>{logs+=b.toString();});
   let browser;
   try {

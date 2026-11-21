@@ -19,6 +19,19 @@ Orbit brings the everyday questions together: **What is using my memory? Where d
 
 The frameless Electron window lets the actual desktop show through its clear corners and translucent panels. Use the slider in the top bar or Preferences to set transparency from 0% to 80%. There is no wallpaper or theme picker inside the app. Health-check actions show an explicit scanning state.
 
+## Download
+
+Get the latest build from the [Releases page](https://github.com/Smaran-Prakash-Jani/orbit-desktop/releases/latest):
+
+| File | For |
+| --- | --- |
+| `Orbit-<version>-linux-amd64.deb` | Debian, Ubuntu and derivatives |
+| `Orbit-<version>-linux-x86_64.AppImage` | Other x86-64 Linux distributions (may need FUSE) |
+| `Orbit-<version>-linux-x86_64.flatpak` | Sandboxed Flatpak install, with narrower host visibility |
+| `Orbit-<version>-windows-x64-setup.exe` / `-portable.exe` | Windows x64 preview, not yet tested on Windows |
+
+Install commands are under [Packages](#packages). Builds are unsigned, so Windows SmartScreen may warn before the first launch.
+
 ## Run from source
 
 Requires Node.js 22.12+ and a graphical desktop.
@@ -51,12 +64,12 @@ chmod +x Orbit-0.1.0-linux-x86_64.AppImage
 ./Orbit-0.1.0-linux-x86_64.AppImage
 # or, once the matching runtime is available
 flatpak install --user ./Orbit-0.1.0-linux-x86_64.flatpak
-flatpak run io.github.orbitdesktop.Orbit
+flatpak run io.github.Smaran_Prakash_Jani.orbit-desktop
 ```
 
-Windows users can launch the portable executable directly. The current Windows build includes the translucent dashboard and transparency slider, and is unsigned. Linux-to-Windows cross-building does not validate Windows runtime behavior; test it on Windows before publishing a release.
+Windows users can launch the portable executable directly or run the setup installer. Both are unsigned. The Windows builds are compiled on a Windows CI runner but have not yet been run on a Windows machine, so treat them as a preview and please report problems.
 
-The GitHub Actions workflow builds Linux, Windows portable/setup, and Flatpak artifacts. It uploads build artifacts rather than publishing releases. Before publishing packages, replace the placeholder maintainer address in `package.json`, choose an application ID tied to your own project, and configure signing if desired. This app is not yet published to Flathub.
+The GitHub Actions workflow builds Linux, Windows portable/setup, and Flatpak packages on every push. Pushing a version tag (`v*`) also attaches them to a GitHub Release. Packages are unsigned, and the app is not yet published to Flathub.
 
 ### Flatpak’s scope
 

@@ -6,7 +6,7 @@
   "author": "Orbit contributors",
   "license": "MIT",
   "homepage": "https://github.com/Smaran-Prakash-Jani/orbit-desktop",
-  "desktopName": "io.github.orbitdesktop.Orbit.desktop",
+  "desktopName": "io.github.Smaran_Prakash_Jani.orbit-desktop.desktop",
   "scripts": {
     "start": "electron .",
     "preview": "node scripts/preview.cjs",
@@ -30,7 +30,7 @@
     "playwright": "^1.56.0"
   },
   "build": {
-    "appId": "io.github.orbitdesktop.Orbit",
+    "appId": "io.github.Smaran_Prakash_Jani.orbit-desktop",
     "productName": "Orbit",
     "directories": {
       "output": "release",
@@ -53,7 +53,7 @@
       "icon": "assets/icon.png",
       "executableName": "orbit",
       "syncDesktopName": true,
-      "maintainer": "Orbit contributors <orbit@example.invalid>"
+      "maintainer": "Smaran Prakash Jani <83593594+Smaran-Prakash-Jani@users.noreply.github.com>"
     },
     "win": {
       "target": [
