@@ -56,7 +56,7 @@ flatpak run io.github.orbitdesktop.Orbit
 
 Windows users can launch the portable executable directly. The current Windows build includes the translucent dashboard and transparency slider, and is unsigned. Linux-to-Windows cross-building does not validate Windows runtime behavior; test it on Windows before publishing a release.
 
-The GitHub Actions workflow builds Linux, Windows portable/setup, and Flatpak artifacts. It uploads build artifacts rather than publishing releases. Before publishing, replace the generic homepage and placeholder maintainer address in `package.json`, choose an application ID tied to your own project, and configure signing if desired. This repository is not yet published to GitHub or Flathub.
+The GitHub Actions workflow builds Linux, Windows portable/setup, and Flatpak artifacts. It uploads build artifacts rather than publishing releases. Before publishing packages, replace the placeholder maintainer address in `package.json`, choose an application ID tied to your own project, and configure signing if desired. This app is not yet published to Flathub.
 
 ### Flatpak’s scope
 

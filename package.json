@@ -5,7 +5,7 @@
   "main": "desktop/main.cjs",
   "author": "Orbit contributors",
   "license": "MIT",
-  "homepage": "https://github.com/topics/linux",
+  "homepage": "https://github.com/Smaran-Prakash-Jani/orbit-desktop",
   "desktopName": "io.github.orbitdesktop.Orbit.desktop",
   "scripts": {
     "start": "electron .",
